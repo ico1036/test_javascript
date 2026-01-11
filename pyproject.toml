@@ -1,0 +1,9 @@
+[project]
+name = "team-randomizer"
+version = "1.0.0"
+description = "N명의 참가자를 4개 조에 랜덤 배분하는 웹 도구"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = []
