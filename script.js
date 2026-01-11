@@ -213,6 +213,77 @@ TestRunner.test('assignTeams는 모든 참가자를 배분해야 한다', () => 
   TestRunner.assertEqual(total, 12, '참가자 수가 맞지 않음');
 });
 
+TestRunner.test('제약조건이 있어도 조별 인원이 균등해야 한다', () => {
+  const leaders = { 1: 'L1', 2: 'L2', 3: 'L3' };
+  const subLeaders = { 1: 'S1', 2: 'S2', 3: 'S3' };
+  // 12명의 일반 참가자
+  const participants = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+  // 2조에 2명 고정
+  const constraints = [
+    { name: 'A', team: 2 },
+    { name: 'B', team: 2 }
+  ];
+  const result = assignTeams(leaders, subLeaders, participants, constraints, 3);
+
+  // 총 18명 = 조장3 + 부조장3 + 참가자12
+  // 균등 배분 시 각 조 6명
+  const team1Count = result[1].length;
+  const team2Count = result[2].length;
+  const team3Count = result[3].length;
+
+  // 각 조의 인원 차이가 1명 이하여야 함
+  const maxDiff = Math.max(team1Count, team2Count, team3Count) - Math.min(team1Count, team2Count, team3Count);
+  TestRunner.assertTrue(maxDiff <= 1, `조별 인원 차이가 1명 초과: 1조(${team1Count}), 2조(${team2Count}), 3조(${team3Count})`);
+});
+
+TestRunner.test('한 조에 많은 제약조건이 있어도 균등 배분되어야 한다', () => {
+  const leaders = { 1: 'L1', 2: 'L2', 3: 'L3' };
+  const subLeaders = { 1: 'S1', 2: 'S2', 3: 'S3' };
+  // 9명의 일반 참가자
+  const participants = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  // 1조에 3명 고정 (극단적 케이스)
+  const constraints = [
+    { name: 'A', team: 1 },
+    { name: 'B', team: 1 },
+    { name: 'C', team: 1 }
+  ];
+  const result = assignTeams(leaders, subLeaders, participants, constraints, 3);
+
+  // 1조: 조장 + 부조장 + 제약3 = 5명
+  // 나머지 6명은 2조, 3조에 배분되어야 함
+  // 2조: 조장 + 부조장 + 3명 = 5명
+  // 3조: 조장 + 부조장 + 3명 = 5명
+  const team1Count = result[1].length;
+  const team2Count = result[2].length;
+  const team3Count = result[3].length;
+
+  TestRunner.assertEqual(team1Count, 5, `1조 인원 오류: ${team1Count}`);
+  TestRunner.assertTrue(team2Count >= 4 && team2Count <= 5, `2조 인원 오류: ${team2Count}`);
+  TestRunner.assertTrue(team3Count >= 4 && team3Count <= 5, `3조 인원 오류: ${team3Count}`);
+});
+
+TestRunner.test('여러 조에 제약조건이 분산되어도 균등 배분되어야 한다', () => {
+  const leaders = { 1: 'L1', 2: 'L2', 3: 'L3' };
+  const subLeaders = { 1: 'S1', 2: 'S2', 3: 'S3' };
+  const participants = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  // 각 조에 1명씩 고정
+  const constraints = [
+    { name: 'A', team: 1 },
+    { name: 'B', team: 2 },
+    { name: 'C', team: 3 }
+  ];
+  const result = assignTeams(leaders, subLeaders, participants, constraints, 3);
+
+  const team1Count = result[1].length;
+  const team2Count = result[2].length;
+  const team3Count = result[3].length;
+
+  // 총 15명 / 3조 = 각 5명
+  TestRunner.assertEqual(team1Count, 5, `1조 인원 오류: ${team1Count}`);
+  TestRunner.assertEqual(team2Count, 5, `2조 인원 오류: ${team2Count}`);
+  TestRunner.assertEqual(team3Count, 5, `3조 인원 오류: ${team3Count}`);
+});
+
 console.log('=== 단위 테스트 실행 ===\n');
 TestRunner.run();
 
