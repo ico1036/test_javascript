@@ -56,6 +56,78 @@ header h1 {
   gap: 16px;
 }
 
+/* 3개 조 그리드 */
+.leaders-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.team-leaders {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.team-leaders h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e5e7eb;
+  text-align: center;
+}
+
+/* 제약조건 */
+.constraints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.constraint-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fef3c7;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #fcd34d;
+}
+
+.constraint-item input {
+  padding: 8px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  width: 120px;
+}
+
+.constraint-item select {
+  padding: 8px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  background: white;
+}
+
+.constraint-item .remove-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.constraint-item .remove-btn:hover {
+  color: #ef4444;
+}
+
 .leader-input {
   display: flex;
   align-items: center;
@@ -193,6 +265,12 @@ header h1 {
   gap: 16px;
 }
 
+.teams-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
 .team-card {
   background: #f9fafb;
   border-radius: 12px;
@@ -226,6 +304,24 @@ header h1 {
 
 .team-card li.leader::before {
   content: '\2B50 ';
+}
+
+.team-card li.sub-leader {
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.team-card li.sub-leader::before {
+  content: '\2728 ';
+}
+
+.team-card li.constrained {
+  color: #d97706;
+  font-weight: 500;
+}
+
+.team-card li.constrained::before {
+  content: '\1F4CC ';
 }
 
 /* 모달 */
@@ -364,13 +460,29 @@ header h1 {
     grid-template-columns: 1fr;
   }
 
+  .leaders-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
   .teams-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teams-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .constraint-item {
+    flex-wrap: wrap;
   }
 }
 
 @media (max-width: 480px) {
   .teams-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teams-grid-3 {
     grid-template-columns: 1fr;
   }
 }

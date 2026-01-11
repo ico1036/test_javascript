@@ -14,27 +14,53 @@
     </header>
 
     <main>
-      <!-- 조장 고정 멤버 섹션 -->
+      <!-- 조장/부조장 고정 멤버 섹션 -->
       <section class="section leaders-section">
-        <h2>조별 고정 멤버 (조장)</h2>
-        <div class="leaders-grid">
-          <div class="leader-input">
-            <label for="leader1">1조:</label>
-            <input type="text" id="leader1" value="김조장">
+        <h2>조별 고정 멤버 (조장/부조장)</h2>
+        <div class="leaders-grid-3">
+          <div class="team-leaders">
+            <h3>1조</h3>
+            <div class="leader-input">
+              <label for="leader1">조장:</label>
+              <input type="text" id="leader1" value="김가령">
+            </div>
+            <div class="leader-input">
+              <label for="subLeader1">부조장:</label>
+              <input type="text" id="subLeader1" value="김지웅">
+            </div>
           </div>
-          <div class="leader-input">
-            <label for="leader2">2조:</label>
-            <input type="text" id="leader2" value="이조장">
+          <div class="team-leaders">
+            <h3>2조</h3>
+            <div class="leader-input">
+              <label for="leader2">조장:</label>
+              <input type="text" id="leader2" value="최희준">
+            </div>
+            <div class="leader-input">
+              <label for="subLeader2">부조장:</label>
+              <input type="text" id="subLeader2" value="권혁우">
+            </div>
           </div>
-          <div class="leader-input">
-            <label for="leader3">3조:</label>
-            <input type="text" id="leader3" value="박조장">
-          </div>
-          <div class="leader-input">
-            <label for="leader4">4조:</label>
-            <input type="text" id="leader4" value="최조장">
+          <div class="team-leaders">
+            <h3>3조</h3>
+            <div class="leader-input">
+              <label for="leader3">조장:</label>
+              <input type="text" id="leader3" value="송선호">
+            </div>
+            <div class="leader-input">
+              <label for="subLeader3">부조장:</label>
+              <input type="text" id="subLeader3" value="이윤진">
+            </div>
           </div>
         </div>
+      </section>
+
+      <!-- 제약조건 섹션 -->
+      <section class="section constraints-section">
+        <h2>제약조건 (특정 인원 조 고정)</h2>
+        <div id="constraintsList" class="constraints-list">
+          <!-- 제약조건이 여기에 동적으로 추가됨 -->
+        </div>
+        <button id="addConstraintBtn" class="btn-add">+ 제약조건 추가</button>
       </section>
 
       <!-- 일반 참가자 섹션 -->
@@ -54,7 +80,7 @@
       <!-- 결과 섹션 -->
       <section id="resultsSection" class="section results-section" style="display: none;">
         <h2>조 편성 결과</h2>
-        <div id="teamsGrid" class="teams-grid">
+        <div id="teamsGrid" class="teams-grid-3">
           <!-- 조별 결과가 여기에 표시됨 -->
         </div>
       </section>
