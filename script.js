@@ -56,11 +56,19 @@ function assignTeams(leaders, subLeaders, participants, constraints, teamCount =
 
   const remainingParticipants = participants.filter(name => !excludeNames.has(name));
 
-  // 4. 남은 참가자 셔플 후 배분
+  // 4. 남은 참가자 셔플 후 균등 배분 (인원 적은 조에 먼저 배치)
   const shuffled = shuffle(remainingParticipants);
-  shuffled.forEach((name, index) => {
-    const teamNum = (index % teamCount) + 1;
-    teams[teamNum].push({ name, role: 'member' });
+  shuffled.forEach((name) => {
+    // 현재 인원이 가장 적은 조 찾기
+    let minTeam = 1;
+    let minCount = teams[1].length;
+    for (let i = 2; i <= teamCount; i++) {
+      if (teams[i].length < minCount) {
+        minCount = teams[i].length;
+        minTeam = i;
+      }
+    }
+    teams[minTeam].push({ name, role: 'member' });
   });
 
   return teams;
